@@ -6,14 +6,16 @@ use App\Http\Controllers\BandeiraController;
 use App\Http\Controllers\UnidadeController;
 use App\Http\Controllers\ColaboradorController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-// Rotas dos CRUDs
+Route::get('/', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+
 Route::resource('grupos-economicos', GrupoEconomicoController::class);
 Route::resource('bandeiras', BandeiraController::class);
-Route::resource('bandeiras', \App\Http\Controllers\BandeiraController::class);
-
 Route::resource('unidades', UnidadeController::class);
-Route::resource('colaboradores', ColaboradorController::class);
+Route::resource('colaboradores', ColaboradorController::class)->parameters([
+    'colaboradores' => 'colaborador'
+
+]);
