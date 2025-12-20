@@ -25,8 +25,17 @@ class ColaboradorController extends Controller
         $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|email|unique:colaboradores,email',
-            'cpf' => 'required|string|max:14|unique:colaboradores,cpf',
+            // CPF agora exige apenas 11 dígitos numéricos
+            'cpf' => ['required', 'digits:11', 'unique:colaboradores,cpf'],
             'unidade_id' => 'required|exists:unidades,id',
+        ], [
+            'email.unique' => 'Este e-mail já está cadastrado.',
+            'email.email' => 'Informe um e-mail válido.',
+            'cpf.required' => 'O CPF é obrigatório.',
+            'cpf.digits' => 'Informe um CPF válido de 11 dígitos.',
+            'cpf.unique' => 'Este CPF já está cadastrado.',
+            'unidade_id.required' => 'Selecione uma unidade.',
+            'unidade_id.exists' => 'A unidade selecionada não existe.',
         ]);
 
         Colaborador::create($request->only(['nome', 'email', 'cpf', 'unidade_id']));
@@ -45,8 +54,17 @@ class ColaboradorController extends Controller
         $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|email|unique:colaboradores,email,' . $colaborador->id . ',id',
-            'cpf' => 'required|string|max:14|unique:colaboradores,cpf,' . $colaborador->id . ',id',
+            // CPF também exige apenas 11 dígitos numéricos no update
+            'cpf' => ['required', 'digits:11', 'unique:colaboradores,cpf,' . $colaborador->id . ',id'],
             'unidade_id' => 'required|exists:unidades,id',
+        ], [
+            'email.unique' => 'Este e-mail já está cadastrado.',
+            'email.email' => 'Informe um e-mail válido.',
+            'cpf.required' => 'O CPF é obrigatório.',
+            'cpf.digits' => 'Informe um CPF válido de 11 dígitos.',
+            'cpf.unique' => 'Este CPF já está cadastrado.',
+            'unidade_id.required' => 'Selecione uma unidade.',
+            'unidade_id.exists' => 'A unidade selecionada não existe.',
         ]);
 
         $colaborador->update($request->only(['nome', 'email', 'cpf', 'unidade_id']));
