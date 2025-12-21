@@ -3,9 +3,7 @@
         <!-- Grupo Econômico -->
         <div class="col-md-4">
             <label class="form-label">Grupo Econômico</label>
-            <select wire:model="grupo_id"
-                    wire:change="$set('bandeira_id', null); $set('unidade_id', null)"
-                    class="form-select">
+            <select wire:model.live="grupo_id" class="form-select">
                 <option value="">Selecione...</option>
                 @foreach($grupos as $grupo)
                     <option value="{{ (string) $grupo->id }}">{{ $grupo->nome }}</option>
@@ -16,10 +14,7 @@
         <!-- Bandeira -->
         <div class="col-md-4">
             <label class="form-label">Bandeira</label>
-            <select wire:model="bandeira_id"
-                    wire:change="$set('unidade_id', null)"
-                    class="form-select"
-                    @disabled(!$grupo_id)>
+            <select wire:model.live="bandeira_id" class="form-select" @disabled(!$grupo_id)>
                 <option value="">Selecione...</option>
                 @foreach($bandeiras as $bandeira)
                     <option value="{{ (string) $bandeira->id }}">{{ $bandeira->nome }}</option>
@@ -30,9 +25,7 @@
         <!-- Unidade -->
         <div class="col-md-4">
             <label class="form-label">Unidade</label>
-            <select wire:model="unidade_id"
-                    class="form-select"
-                    @disabled(!$bandeira_id)>
+            <select wire:model.live="unidade_id" class="form-select" @disabled(!$bandeira_id)>
                 <option value="">Selecione...</option>
                 @foreach($unidades as $unidade)
                     <option value="{{ (string) $unidade->id }}">{{ $unidade->nome_fantasia }}</option>
@@ -43,9 +36,9 @@
 
     <!-- Tabela de Colaboradores -->
     <div class="mt-4">
-        <h5>Colaboradores da Unidade selecionada</h5>
+        <h5>Colaboradores da Unidade selecionada:</h5>
         @if($colaboradores->isEmpty())
-            <p class="text-muted">Selecione uma unidade para visualizar os colaboradores.</p>
+            <p class="text-muted">Use os filtros acima para exibir os colaboradores da unidade escolhida.</p>
         @else
             <table class="table table-bordered table-striped">
                 <thead class="table-light">
@@ -72,8 +65,5 @@
         @endif
     </div>
 
-    <!-- Debug -->
-    <div class="mt-2 text-muted">
-        Debug: grupo_id={{ $grupo_id }} | bandeira_id={{ $bandeira_id }} | unidade_id={{ $unidade_id }}
-    </div>
+
 </div>
