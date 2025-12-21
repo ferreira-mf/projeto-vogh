@@ -26,8 +26,7 @@ class FiltroColaboradores extends Component
             ? Unidade::where('bandeira_id', $this->bandeira_id)->orderBy('nome_fantasia')->get()
             : collect();
 
-
-        $colaboradores = ($this->grupo_id && $this->bandeira_id && $this->unidade_id)
+        $colaboradores = $this->unidade_id
             ? Colaborador::where('unidade_id', (int) $this->unidade_id)->orderBy('nome')->get()
             : collect();
 
