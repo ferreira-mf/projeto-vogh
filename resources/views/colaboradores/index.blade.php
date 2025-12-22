@@ -4,7 +4,10 @@
 <div class="container">
     <h1>Colaboradores</h1>
 
-    <a href="{{ route('colaboradores.create') }}" class="btn btn-primary mb-3">Novo Colaborador</a>
+    <div class="mb-3 d-flex gap-2">
+        <a href="{{ route('colaboradores.create') }}" class="btn btn-primary">Novo Colaborador</a>
+        <a href="{{ url('/export/colaboradores') }}" class="btn btn-success">Exportar para Excel</a>
+    </div>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -44,9 +47,7 @@
                     <td>{{ $colaborador->created_at?->format('d/m/Y H:i') }}</td>
                     <td>{{ $colaborador->updated_at?->format('d/m/Y H:i') }}</td>
                     <td>
-                        
                         <a href="{{ route('colaboradores.edit', $colaborador) }}" class="btn btn-warning btn-sm">Editar</a>
-                        
                         <form action="{{ route('colaboradores.destroy', $colaborador) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
