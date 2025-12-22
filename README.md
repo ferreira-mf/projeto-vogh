@@ -37,22 +37,33 @@ Aqui estão os passos para colocar o sistema para funcionar.
 
 
 1. **Clonar o projeto**  
+```bash
 git clone https://github.com/ferreira-mf/projeto-voch
+```
 
 2. **Vá até a pasta do projeto clonado** 
+```bash
 cd projeto-voch
-
+```
 3. **Subir os containers**  
+```bash
 docker compose up -d --build
+```
 
 4. **Gerar a APP_KEY** 
+```bash
 docker compose exec app php artisan key:generate
+```
 
 5. **Rodar as migrations** 
+```bash
 docker compose exec app php artisan migrate
+```
 
-6. **OPCIONAL: Popular o banco com os seeders** 
+6. **OPCIONAL: Popular o banco com os seeders**
+```bash 
 docker compose exec app php artisan db:seed
+```
 
 7. **Acessar a aplicação pelo navegador** 
 http://localhost:8000
