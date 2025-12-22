@@ -15,6 +15,7 @@ Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 Route::get('/auditoria', [AuditoriaController::class, 'index']);
 Route::resource('grupos-economicos', GrupoEconomicoController::class);
 Route::get('/export/colaboradores', [ExportController::class, 'exportColaboradores']);
+Route::get('/export/colaboradores', [ExportController::class, 'exportColaboradores'])->name('export.colaboradores');
 Route::resource('bandeiras', BandeiraController::class);
 Route::resource('unidades', UnidadeController::class);
 Route::resource('colaboradores', ColaboradorController::class)->parameters([

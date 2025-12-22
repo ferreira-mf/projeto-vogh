@@ -33,9 +33,19 @@
 
     <div class="mt-4">
         <h5>Colaboradores da Unidade selecionada</h5>
+
         @if($colaboradores instanceof \Illuminate\Support\Collection && $colaboradores->isEmpty())
             <p class="text-muted">Use os filtros acima para exibir os colaboradores da unidade escolhida.</p>
         @elseif($colaboradores->count())
+
+            {{-- Botão de exportação --}}
+            <form method="GET" action="{{ route('export.colaboradores') }}" class="mb-3">
+                <input type="hidden" name="grupo_economico_id" value="{{ $grupo_id }}">
+                <input type="hidden" name="bandeira_id" value="{{ $bandeira_id }}">
+                <input type="hidden" name="unidade_id" value="{{ $unidade_id }}">
+                <button type="submit" class="btn btn-success">Exportar para Excel</button>
+            </form>
+
             <table class="table table-bordered table-striped">
                 <thead class="table-light">
                     <tr>
@@ -59,7 +69,7 @@
                 </tbody>
             </table>
 
-            {{-- Paginação: Anterior, números e Próximo --}}
+            {{-- Paginação --}}
             <div class="d-flex justify-content-center gap-2 mt-3">
                 {{-- Botão Anterior --}}
                 @if ($colaboradores->onFirstPage())
