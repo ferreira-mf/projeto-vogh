@@ -32,7 +32,7 @@
                     <a class="nav-link" href="{{ route('colaboradores.index') }}">Colaboradores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/auditoria') }}">Auditoria</a>
+                    <a class="nav-link" href="{{ url('/auditoria') }}">Registro de Atividades</a>
                 </li>
             </ul>
         </div>
