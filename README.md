@@ -28,16 +28,14 @@ Sistema de gestão de grupos econômicos, bandeiras, unidades e colaboradores, c
 
 ---
 
-## ⚙️ Setup do Projeto
-
-Aqui estão os passos para colocar o sistema para funcionar.  
-
----
-
 ## 📋 Pré-requisitos
 - Git
 - Docker
 
+---
+## ⚙️ Setup do Projeto
+
+Aqui estão os passos para colocar o sistema para funcionar.  
 
 
 1. **Clonar o projeto**  
