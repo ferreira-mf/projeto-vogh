@@ -59,14 +59,25 @@
                 </tbody>
             </table>
 
-            {{-- Botões Anterior e Proximo --}}
-            <div class="d-flex justify-content-between mt-3">
+            {{-- Paginação: Anterior, números e Próximo --}}
+            <div class="d-flex justify-content-center gap-2 mt-3">
+                {{-- Botão Anterior --}}
                 @if ($colaboradores->onFirstPage())
                     <span class="btn btn-secondary disabled">Anterior</span>
                 @else
                     <button wire:click="previousPage" class="btn btn-primary">Anterior</button>
                 @endif
 
+                {{-- Botões numéricos --}}
+                @for ($page = 1; $page <= $colaboradores->lastPage(); $page++)
+                    @if ($page == $colaboradores->currentPage())
+                        <span class="btn btn-secondary active">{{ $page }}</span>
+                    @else
+                        <button wire:click="gotoPage({{ $page }})" class="btn btn-outline-primary">{{ $page }}</button>
+                    @endif
+                @endfor
+
+                {{-- Botão Próximo --}}
                 @if ($colaboradores->hasMorePages())
                     <button wire:click="nextPage" class="btn btn-primary">Próximo</button>
                 @else
