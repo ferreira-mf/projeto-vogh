@@ -11,7 +11,7 @@
                 <th>Ação</th>
                 <th>Entidade</th>
                 <th>ID</th>
-                <th>Nome da Entidade</th>
+                <th>Alterações</th>
                 <th>Data</th>
             </tr>
         </thead>
@@ -37,12 +37,30 @@
                     <td>{{ class_basename($log->subject_type) }}</td>
                     <td>{{ $log->subject_id }}</td>
                     <td>
-                        {{-- Para created/updated --}}
-                        @if(isset($log->properties['attributes']['nome']))
-                            {{ $log->properties['attributes']['nome'] }}
-                        {{-- Para deleted --}}
-                        @elseif(isset($log->properties['old']['nome']))
-                            {{ $log->properties['old']['nome'] }}
+                        {{-- Para created: mostra atributos novos --}}
+                        @if($log->description === 'created' && isset($log->properties['attributes']))
+                            @foreach($log->properties['attributes'] as $attr => $value)
+                                <div><strong>{{ ucfirst($attr) }}:</strong> {{ $value }}</div>
+                            @endforeach
+
+                        {{-- Para updated: mostra antes → depois --}}
+                        @elseif($log->description === 'updated' 
+                            && isset($log->properties['old']) 
+                            && isset($log->properties['attributes']))
+                            @foreach($log->properties['attributes'] as $attr => $newValue)
+                                @php $oldValue = $log->properties['old'][$attr] ?? null; @endphp
+                                <div>
+                                    <strong>{{ ucfirst($attr) }}:</strong> 
+                                    {{ $oldValue ?? '-' }} → {{ $newValue }}
+                                </div>
+                            @endforeach
+
+                        {{-- Para deleted: mostra atributos antigos --}}
+                        @elseif($log->description === 'deleted' && isset($log->properties['old']))
+                            @foreach($log->properties['old'] as $attr => $value)
+                                <div><strong>{{ ucfirst($attr) }}:</strong> {{ $value }}</div>
+                            @endforeach
+
                         @else
                             -
                         @endif
