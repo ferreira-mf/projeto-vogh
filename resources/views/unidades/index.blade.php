@@ -4,7 +4,10 @@
 <div class="container">
     <h1>Unidades</h1>
 
-    <a href="{{ route('unidades.create') }}" class="btn btn-primary mb-3">Nova Unidade</a>
+    <div class="mb-3 d-flex gap-2">
+        <a href="{{ route('unidades.create') }}" class="btn btn-primary">Nova Unidade</a>
+        <a href="{{ route('export.unidades') }}" class="btn btn-success">Exportar para Excel</a>
+    </div>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

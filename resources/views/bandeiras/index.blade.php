@@ -4,7 +4,10 @@
 <div class="container">
     <h1>Bandeiras</h1>
 
-    <a href="{{ route('bandeiras.create') }}" class="btn btn-primary mb-3">Nova Bandeira</a>
+    <div class="mb-3 d-flex gap-2">
+        <a href="{{ route('bandeiras.create') }}" class="btn btn-primary">Nova Bandeira</a>
+        <a href="{{ route('export.bandeiras') }}" class="btn btn-success">Exportar para Excel</a>
+    </div>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

@@ -4,7 +4,10 @@
 <div class="container">
     <h1>Grupos Econômicos</h1>
 
-    <a href="{{ route('grupos-economicos.create') }}" class="btn btn-primary mb-3">Novo Grupo Econômico</a>
+    <div class="mb-3 d-flex gap-2">
+        <a href="{{ route('grupos-economicos.create') }}" class="btn btn-primary">Novo Grupo Econômico</a>
+        <a href="{{ route('export.grupos') }}" class="btn btn-success">Exportar para Excel</a>
+    </div>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
