@@ -18,7 +18,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('grupos-economicos.index') }}">Grupos Econômicos</a>
                 </li>
@@ -34,6 +34,32 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/auditoria') }}">Registro de Atividades</a>
                 </li>
+            </ul>
+
+            {{-- Área de autenticação --}}
+            <ul class="navbar-nav ms-auto">
+                @auth
+                    <li class="nav-item">
+                        <span class="nav-link">
+                            Bem-vindo, {{ auth()->user()->name }}
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-link nav-link" style="cursor:pointer;">
+                                Sair
+                            </button>
+                        </form>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Entrar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">Registrar</a>
+                    </li>
+                @endauth
             </ul>
         </div>
     </div>
