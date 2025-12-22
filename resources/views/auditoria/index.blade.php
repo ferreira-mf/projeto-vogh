@@ -11,6 +11,7 @@
                 <th>Ação</th>
                 <th>Entidade</th>
                 <th>ID</th>
+                <th>Nome da Entidade</th>
                 <th>Data</th>
             </tr>
         </thead>
@@ -18,14 +19,39 @@
             @forelse($logs as $log)
                 <tr>
                     <td>{{ $log->causer?->name ?? 'Sistema' }}</td>
-                    <td>{{ $log->description }}</td>
+                    <td>
+                        @switch($log->description)
+                            @case('created')
+                                Criado
+                                @break
+                            @case('updated')
+                                Atualizado
+                                @break
+                            @case('deleted')
+                                Excluído
+                                @break
+                            @default
+                                {{ $log->description }}
+                        @endswitch
+                    </td>
                     <td>{{ class_basename($log->subject_type) }}</td>
                     <td>{{ $log->subject_id }}</td>
+                    <td>
+                        {{-- Para created/updated --}}
+                        @if(isset($log->properties['attributes']['nome']))
+                            {{ $log->properties['attributes']['nome'] }}
+                        {{-- Para deleted --}}
+                        @elseif(isset($log->properties['old']['nome']))
+                            {{ $log->properties['old']['nome'] }}
+                        @else
+                            -
+                        @endif
+                    </td>
                     <td>{{ $log->created_at->format('d/m/Y H:i:s') }}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" class="text-center text-muted">Nenhum log encontrado.</td>
+                    <td colspan="6" class="text-center text-muted">Nenhum log encontrado.</td>
                 </tr>
             @endforelse
         </tbody>
